@@ -3,43 +3,48 @@ package com.example.projet_collectif.controller;
 import com.example.projet_collectif.model.Filiere;
 import com.example.projet_collectif.service.FiliereService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-
-@RestController
-@RequestMapping("/api/filieres")
+@Controller
+@RequestMapping("/filieres")
 public class FiliereController {
 
     @Autowired
     private FiliereService filiereService;
 
-    // Endpoint pour récupérer toutes les filières
+    // Afficher la liste des filières
     @GetMapping
-    public List<Filiere> getAllFilieres() {
-        return filiereService.getAllFilieres();
+    public String listFilieres(Model model) {
+        model.addAttribute("filieres", filiereService.getAllFilieres());
+        return "list-filieres"; // Correspond exactement au fichier list-filieres.html
+    }
+    @GetMapping("/test")
+    public String testPage() {
+        return "test"; // Correspond au fichier test.html
     }
 
-    // Endpoint pour récupérer une filière par ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Filiere> getFiliereById(@PathVariable Long id) {
-        Optional<Filiere> filiere = filiereService.getFiliereById(id);
-        return filiere.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    // Afficher le formulaire d'ajout
+    @GetMapping("/add")
+    public String addFiliereForm(Model model) {
+        model.addAttribute("filiere", new Filiere()); // Crée un nouvel objet Filiere pour le formulaire
+        return "add_filiere"; // Correspond au nom du fichier add_filiere.html
     }
 
-    // Endpoint pour créer ou mettre à jour une filière
+
+
+    // Enregistrer une nouvelle filière
     @PostMapping
-    public Filiere createOrUpdateFiliere(@RequestBody Filiere filiere) {
-        return filiereService.saveFiliere(filiere);
+    public String saveFiliere(@ModelAttribute("filiere") Filiere filiere) {
+        filiereService.saveFiliere(filiere);
+        return "redirect:/filieres"; // Redirection vers la liste des filières
     }
 
-    // Endpoint pour supprimer une filière
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteFiliere(@PathVariable Long id) {
-        filiereService.deleteFiliere(id);
-        return ResponseEntity.noContent().build();
-    }
+//    // Supprimer une filière
+//    @GetMapping("/delete/{id}")
+//    public String deleteFiliere(@PathVariable("id") Long id) {
+//        filiereService.deleteFiliere(id);
+//        return "redirect:/filieres"; // Redirection après suppression
+//    }
 }

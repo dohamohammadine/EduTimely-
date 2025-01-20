@@ -11,12 +11,12 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "filieres")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Filiere {
 
     @Id

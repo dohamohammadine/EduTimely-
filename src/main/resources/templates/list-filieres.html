@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des Filières</title>
+</head>
+<body>
+<h1>Liste des Filières</h1>
+<a th:href="@{/filieres/add}">Ajouter une nouvelle Filière</a>
+<br><br>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Nom de la Filière</th>
+        <th>Effectif</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="filiere : ${filieres}">
+        <td th:text="${filiere.filiere}">Nom Filière</td>
+        <td th:text="${filiere.effectif}">Effectif</td>
+        <td>
+            <a th:href="@{/filieres/delete/{id}(id=${filiere.id})}">Supprimer</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

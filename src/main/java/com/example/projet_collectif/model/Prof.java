@@ -8,10 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Entity
 @Table(name = "profs")
 public class Prof {
@@ -20,6 +17,30 @@ public class Prof {
     private int id;
 
     private String nom;
+
+    public Prof() {
+    }
+
+    public Prof(int id, String nom) {
+        this.id = id;
+        this.nom = nom;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 
     @Override
     public String toString() {

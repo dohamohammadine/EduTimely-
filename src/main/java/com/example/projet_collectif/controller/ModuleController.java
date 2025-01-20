@@ -1,45 +1,53 @@
+
 package com.example.projet_collectif.controller;
 
 import com.example.projet_collectif.model.Module;
+import com.example.projet_collectif.model.Prof;
 import com.example.projet_collectif.service.ModuleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
-@RestController
-@RequestMapping("/api/modules")
+@Controller
+@RequestMapping("/modules")
 public class ModuleController {
 
     @Autowired
     private ModuleService moduleService;
 
-    // Endpoint pour récupérer tous les modules
+    // Afficher la liste des modules
     @GetMapping
-    public List<Module> getAllModules() {
-        return moduleService.getAllModules();
+    public String listModules(Model model) {
+        model.addAttribute("modules", moduleService.getAllModules());
+        return "list-modules";
     }
 
-    // Endpoint pour récupérer un module par ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Module> getModuleById(@PathVariable Long id) {
-        Optional<Module> module = moduleService.getModuleById(id);
-        return module.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    // Afficher le formulaire d'ajout
+    @GetMapping("/add")
+    public String addModuleForm(Model model) {
+        model.addAttribute("module", new Module());
+        return "add-module";
     }
 
-    // Endpoint pour créer ou mettre à jour un module
+    // Enregistrer un nouveau module
     @PostMapping
-    public Module createOrUpdateModule(@RequestBody Module module) {
-        return moduleService.saveModule(module);
+    public String saveModule(@ModelAttribute Module module) {
+        // Vérifier si un professeur est associé
+        Prof prof = module.getProf();
+        if (prof != null && prof.getNom() != null) {
+            module.setProf(prof);
+        }
+        moduleService.saveModule(module);
+        return "redirect:/modules";
     }
 
-    // Endpoint pour supprimer un module
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteModule(@PathVariable Long id) {
+    // Supprimer un module
+    @GetMapping("/delete/{id}")
+    public String deleteModule(@PathVariable Long id) {
         moduleService.deleteModule(id);
-        return ResponseEntity.noContent().build();
+        return "redirect:/modules";
     }
 }
