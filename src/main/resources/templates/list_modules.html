@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des Modules</title>
+</head>
+<body>
+<h1>Liste des Modules</h1>
+<a href="/modules/add">Ajouter un nouveau Module</a>
+<ul>
+    <li th:each="module : ${modules}">
+        <span th:text="${module.module}">Nom du Module</span> - <span th:text="${module.prof.nom}">Professeur</span>
+    </li>
+</ul>
+</body>
+</html>

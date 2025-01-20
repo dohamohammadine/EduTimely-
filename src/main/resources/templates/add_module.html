@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ajouter un Module</title>
+</head>
+<body>
+<h1>Ajouter un Module</h1>
+<form action="#" th:action="@{/modules}" th:object="${module}" method="post">
+    <label for="module">Nom du Module :</label>
+    <input type="text" id="module" th:field="*{module}" required/><br><br>
+
+    <label for="prof">Professeur :</label>
+    <input type="text" id="prof" th:field="*{prof.nom}" required/><br><br>
+
+    <label for="prise">Prise :</label>
+    <input type="checkbox" id="prise" th:field="*{prise}" /><br><br>
+
+    <button type="submit">Ajouter</button>
+</form>
+<a href="/modules">Retourner à la liste des modules</a>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des Filières</title>
+</head>
+<body>
+<h1>Liste des Filières</h1>
+<a href="/filieres/add">Ajouter une nouvelle Filière</a>
+<ul>
+    <li th:each="filiere : ${filieres}">
+        <span th:text="${filiere.filiere}">Nom de la Filière</span> - <span th:text="${filiere.effectif}">Effectif</span>
+    </li>
+</ul>
+</body>
+</html>
