@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ajouter une salle</title>
+</head>
+<body>
+<h1>Ajouter une salle</h1>
+<form th:action="@{/salles}" th:object="${salle}" method="post">
+    <label for="salle">numero de la salle :</label>
+    <input type="text" id="salle" th:field="*{numero}" required/><br><br>
+
+    <label for="capacite">Capacité :</label>
+    <input type="number" id="capacite" th:field="*{capacite}" required/><br><br>
+
+    <label for="prise">Prise :</label>
+    <input type="radio" id="prise" th:field="*{prise}" value="true" required/> Oui
+    <input type="radio" id="prise" th:field="*{prise}" value="false" required/> Non<br><br>
+
+    <button type="submit">Ajouter</button>
+</form>
+<br>
+<a th:href="@{/salles}">Retourner à la liste des salles</a>
+</body>
+</html>

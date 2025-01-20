@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Liste des salles</title>
+</head>
+<body>
+<h1>Liste des salles</h1>
+<a th:href="@{/salles/add}">Ajouter une salle</a>
+<br><br>
+<table border="1">
+  <thead>
+  <tr>
+    <th>numero de salle</th>
+    <th>capacité de salle</th>
+    <th>contient prise</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="salle : ${salles}">
+    <td th:text="${salle.numero}">Numero</td>
+    <td th:text="${salle.capacite}">Capacite</td>
+    <td th:text="${salle.prise}">Prise</td>
+    <td>
+      <a th:href="@{/salles/delete/{id}(id=${salle.id})}">Supprimer</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

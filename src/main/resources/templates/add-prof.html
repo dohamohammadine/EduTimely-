@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ajouter un prof</title>
+</head>
+<body>
+<h1>Ajouter un prof</h1>
+<form th:action="@{/profs}" th:object="${prof}" method="post">
+    <!-- Champ pour le nom de la filière -->
+    <label for="prof">Nom de prof :</label>
+    <input type="text" id="prof" th:field="*{nom}" required/><br><br>
+
+    <button type="submit">Ajouter</button>
+</form>
+<br>
+<a th:href="@{/profs}">Retourner à la liste des profs</a>
+</body>
+</html>
