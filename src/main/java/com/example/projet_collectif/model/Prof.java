@@ -1,19 +1,15 @@
 package com.example.projet_collectif.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+
 
 
 @Entity
 @Table(name = "profs")
 public class Prof {
 
-    @Id // Clé primaire
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String nom;
@@ -21,8 +17,7 @@ public class Prof {
     public Prof() {
     }
 
-    public Prof(int id, String nom) {
-        this.id = id;
+    public Prof(String nom) {
         this.nom = nom;
     }
 
