@@ -1,48 +1,52 @@
 package com.example.projet_collectif.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "modules")
 public class Module {
 
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; // Identifiant unique du module
 
-    private String module;
+    private String nom; // Nom du module
 
     @ManyToOne
-    private Prof prof;
+    @JoinColumn(name = "prof_id") // Clé étrangère vers Prof
+    private Prof prof; // Le professeur associé au module
 
-    private Boolean prise = false;
+    private Boolean prise = false; // Indique si le module est pris
 
-    @ManyToOne // Relation avec Filiere
-    private Filiere filiere;
+    @ManyToOne
+    @JoinColumn(name = "filiere_id") // Clé étrangère vers Filiere
+    private Filiere filiere; // La filière associée au module
 
-    public Module(String module, Prof prof, Filiere filiere) {
-        this.module = module;
+    // Constructeurs
+    public Module() {
+    }
+
+    public Module(String nom, Prof prof, Filiere filiere) {
+        this.nom = nom;
         this.prof = prof;
         this.filiere = filiere;
     }
 
-    public Module(Long id, String module, Prof prof, Boolean prise, Filiere filiere) {
+    public Module(Long id, String nom, Prof prof, Boolean prise, Filiere filiere) {
         this.id = id;
-        this.module = module;
+        this.nom = nom;
         this.prof = prof;
         this.prise = prise;
         this.filiere = filiere;
     }
 
-    public Module() {
+    public Module(Long id, String nom) {
+        this.id = id;
+        this.nom = nom;
+
     }
 
+    // Getters et setters
     public Long getId() {
         return id;
     }
@@ -51,12 +55,12 @@ public class Module {
         this.id = id;
     }
 
-    public String getModule() {
-        return module;
+    public String getNom() {
+        return nom;
     }
 
-    public void setModule(String module) {
-        this.module = module;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public Prof getProf() {
@@ -86,7 +90,8 @@ public class Module {
     @Override
     public String toString() {
         return "Module{" +
-                "module='" + module + '\'' +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
                 ", prof=" + prof +
                 ", prise=" + prise +
                 ", filiere=" + filiere +

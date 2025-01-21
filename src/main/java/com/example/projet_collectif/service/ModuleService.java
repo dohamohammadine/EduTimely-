@@ -14,22 +14,22 @@ public class ModuleService {
     @Autowired
     private ModuleRepository moduleRepository;
 
-    // Méthode pour récupérer tous les modules
+    // Récupérer tous les modules
     public List<Module> getAllModules() {
         return moduleRepository.findAll();
     }
 
-    // Méthode pour récupérer un module par ID
+    // Récupérer un module par ID
     public Optional<Module> getModuleById(Long id) {
         return moduleRepository.findById(id);
     }
 
-    // Méthode pour créer ou mettre à jour un module
+    // Créer ou mettre à jour un module
     public Module saveModule(Module module) {
         return moduleRepository.save(module);
     }
 
-    // Méthode pour supprimer un module
+    // Supprimer un module
     public void deleteModule(Long id) {
         moduleRepository.deleteById(id);
     }

@@ -10,26 +10,27 @@ import java.util.Optional;
 
 @Service
 public class FiliereService {
-
     @Autowired
     private FiliereRepository filiereRepository;
 
-    // Méthode pour récupérer toutes les filières
     public List<Filiere> getAllFilieres() {
         return filiereRepository.findAll();
     }
 
-    // Méthode pour récupérer une filière par ID
     public Optional<Filiere> getFiliereById(Long id) {
         return filiereRepository.findById(id);
     }
 
-    // Méthode pour créer ou mettre à jour une filière
     public Filiere saveFiliere(Filiere filiere) {
+        // Vérifiez si une filière avec le même nom (insensible à la casse) existe déjà
+        List<Filiere> existingFilieres = filiereRepository.findByNomIgnoreCase(filiere.getNom());
+        if (!existingFilieres.isEmpty()) {
+            throw new IllegalArgumentException("Une filière avec ce nom existe déjà : " + filiere.getNom());
+        }
+
         return filiereRepository.save(filiere);
     }
 
-    // Méthode pour supprimer une filière
     public void deleteFiliere(Long id) {
         filiereRepository.deleteById(id);
     }
